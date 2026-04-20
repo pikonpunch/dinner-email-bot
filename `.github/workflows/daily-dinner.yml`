@@ -1,0 +1,30 @@
+```yaml
+name: Daily Dinner Email
+
+on:
+  schedule:
+    - cron: '0 19 * * *'  # 7 PM UTC = 12 PM PDT
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  send-dinner-email:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Send dinner email
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      run: python dinner_emailer.py
+```
