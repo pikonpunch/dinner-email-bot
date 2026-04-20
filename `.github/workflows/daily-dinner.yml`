@@ -4,7 +4,7 @@ name: Daily Dinner Email
 on:
   schedule:
     - cron: '0 19 * * *'  # 7 PM UTC = 12 PM PDT
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:  # Allows manual triggering 
 
 jobs:
   send-dinner-email:
